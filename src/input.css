@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cream: #F9F6F0;
+  --color-ink: #2C221E;
+  --color-accent: #C88A58;
+  --color-muted: #82766D;
+  --color-sage: #7A8066;
+  --font-sans: "Plus Jakarta Sans", sans-serif;
+  --font-display: "Playfair Display", serif;
+  --shadow-soft: 0 18px 55px rgba(44, 34, 30, .08);
+}

@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f9f6f0">
+  <meta name="description" content="A little pause in your day. Find thoughtful coffee, comforting bites, and a place to feel at home at Aruna Space & Coffee.">
+  <title>Aruna - Space & Coffee</title>
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/tailwind.css">
+  <style>
+    html { scroll-behavior: smooth; scroll-padding-top: 92px; }
+    body { background: #F9F6F0; color: #2C221E; }
+    .grain { background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.12'/%3E%3C/svg%3E"); }
+    .menu-card[hidden] { display: none; }
+    .menu-card img { transition: transform .65s cubic-bezier(.2,.7,.2,1); }
+    .menu-card:hover img { transform: scale(1.06); }
+    .hero-copy { animation: rise-in .85s both; }
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
+    .reveal.is-visible { opacity: 1; transform: translateY(0); }
+    .map-art { background-color: #d9d9c9; background-image: radial-gradient(ellipse at 18% 25%, #c7d0b7 0 8%, transparent 8.5%), radial-gradient(ellipse at 76% 25%, #c7d0b7 0 12%, transparent 12.5%), radial-gradient(ellipse at 72% 82%, #c7d0b7 0 15%, transparent 15.5%), linear-gradient(28deg, transparent 46%, #f8f3e9 46% 50%, transparent 50%), linear-gradient(112deg, transparent 43%, #f8f3e9 43% 48%, transparent 48%), linear-gradient(165deg, transparent 60%, #c88a5850 60% 62%, transparent 62%); }
+    @keyframes rise-in { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+    .tab[aria-selected="true"] { background: #2C221E; color: white; }
+    .nav-link { position: relative; }
+    .nav-link::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 1px; background: #C88A58; transition: width .2s; }
+    .nav-link:hover::after { width: 100%; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; } .reveal { opacity: 1; transform: none; } }
+  </style>
+</head>
+
+<body class="font-sans antialiased">
+  <header class="fixed inset-x-0 top-0 z-50 border-b border-ink/5 bg-cream/90 backdrop-blur-xl">
+    <nav class="mx-auto flex h-[76px] max-w-7xl items-center justify-between px-5 sm:px-8" aria-label="Main navigation">
+      <a href="#home" class="flex items-center gap-3" aria-label="Aruna home">
+        <span class="grid h-10 w-10 place-items-center rounded-full bg-ink text-cream"><svg viewBox="0 0 32 32" class="h-6 w-6" fill="none" aria-hidden="true"><path d="M7 20c0-5 4-9 9-9s9 4 9 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M10 21h12M13 7c-2 2 2 2 0 4m6-5c-2 2 2 2 0 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+        <span class="leading-tight"><span class="block font-display text-lg font-semibold tracking-wide">Aruna</span><span class="block text-[9px] uppercase tracking-[.24em] text-muted">space & coffee</span></span>
+      </a>
+      <div class="hidden items-center gap-8 text-[11px] font-semibold uppercase tracking-[.15em] md:flex">
+        <a class="nav-link" href="#story">Our story</a><a class="nav-link" href="#menu">Menu</a><a class="nav-link" href="#reviews">Kind words</a><a class="nav-link" href="#visit">Find us</a>
+        <div class="flex items-center gap-1 rounded-full border border-ink/10 p-1 text-[9px] tracking-normal" role="group" aria-label="Choose language"><button class="language-button rounded-full bg-ink px-2.5 py-1.5 text-white" type="button" data-language="en" aria-pressed="true">EN</button><button class="language-button rounded-full px-2.5 py-1.5 text-muted" type="button" data-language="id" aria-pressed="false">ID</button></div>
+        <a href="#visit" class="rounded-full bg-ink px-5 py-3 text-[10px] text-white transition hover:bg-accent">Come on in <span aria-hidden="true">↗</span></a>
+      </div>
+      <button id="menu-toggle" class="grid h-11 w-11 place-items-center rounded-full border border-ink/10 md:hidden" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu">
+        <svg id="menu-icon" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round"/></svg>
+      </button>
+    </nav>
+    <div id="mobile-menu" class="hidden border-t border-ink/5 bg-cream px-6 py-4 md:hidden">
+      <div class="mx-auto flex max-w-7xl flex-col text-sm">
+        <div class="flex items-center gap-2 border-b border-ink/5 py-3 text-xs" role="group" aria-label="Choose language"><span class="mr-1 text-muted">Language / Bahasa</span><button class="language-button rounded-full bg-ink px-3 py-1.5 text-white" type="button" data-language="en" aria-pressed="true">EN</button><button class="language-button rounded-full px-3 py-1.5 text-muted" type="button" data-language="id" aria-pressed="false">ID</button></div>
+        <a class="mobile-link border-b border-ink/5 py-3" href="#story">Our story</a><a class="mobile-link border-b border-ink/5 py-3" href="#menu">Menu</a><a class="mobile-link border-b border-ink/5 py-3" href="#reviews">Kind words</a><a class="mobile-link py-3" href="#visit">Find us</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" class="relative overflow-hidden pt-[76px]">
+      <div class="absolute -left-28 top-40 h-72 w-72 rounded-full bg-accent/10 blur-3xl" aria-hidden="true"></div>
+      <div class="mx-auto grid min-h-[650px] max-w-7xl items-center gap-12 px-5 py-16 sm:px-8 lg:grid-cols-[.9fr_1.1fr] lg:gap-16 lg:py-20">
+        <div class="hero-copy relative z-10 max-w-xl">
+          <p class="mb-7 flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[.25em] text-accent"><span class="h-px w-9 bg-accent"></span> Your slower corner of the world</p>
+          <h1 class="font-display text-[clamp(3.6rem,7vw,6.6rem)] leading-[.98] tracking-[-.045em]">Take a little <span class="italic text-accent">pause.</span></h1>
+          <p class="mt-7 max-w-md text-sm leading-7 text-muted sm:text-base">Good coffee, familiar faces, and nowhere else you need to be. Come settle in at Aruna.</p>
+          <div class="mt-9 flex flex-wrap items-center gap-5"><a href="#menu" class="group inline-flex items-center gap-4 rounded-full bg-ink px-7 py-4 text-xs font-semibold text-white transition hover:bg-accent">Explore our menu <span class="transition group-hover:translate-x-1" aria-hidden="true">→</span></a><a href="#story" class="text-xs font-semibold">A little about us <span class="ml-1 text-accent" aria-hidden="true">↗</span></a></div>
+          <div class="mt-14 flex items-center gap-4"><div class="flex -space-x-2"><img class="h-9 w-9 rounded-full border-2 border-cream object-cover" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=80&q=80" alt="Cafe guest"><img class="h-9 w-9 rounded-full border-2 border-cream object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=80&q=80" alt="Cafe guest"><img class="h-9 w-9 rounded-full border-2 border-cream object-cover" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=80&q=80" alt="Cafe guest"></div><p class="text-[11px] leading-5 text-muted"><span class="font-semibold text-ink">A neighborhood favorite</span><br>made for your everyday moments</p></div>
+        </div>
+        <div class="relative mx-auto w-full max-w-[620px] lg:ml-auto">
+          <div class="absolute -right-3 -top-5 z-10 grid h-24 w-24 rotate-6 place-items-center rounded-full bg-accent text-center text-[9px] uppercase leading-4 tracking-[.17em] text-white shadow-soft sm:-right-5 sm:h-28 sm:w-28"><span class="flex w-full flex-col items-center justify-center text-center">slow mornings<span class="my-1 text-base">✳</span></span></div>
+          <div class="aspect-[1.08/1] overflow-hidden rounded-[48%_48%_12px_12px] bg-[#ded4c5]"><img src="https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=1400&q=85" alt="Warm, sunlit cafe interior with wooden furniture" class="h-full w-full object-cover" fetchpriority="high"></div>
+          <div class="grain absolute -bottom-6 -left-5 -z-10 h-32 w-36 rounded-2xl bg-[#e8dfd3] sm:-left-8 sm:h-40 sm:w-44"></div>
+          <p class="absolute -bottom-7 right-3 rounded-full bg-cream/90 px-4 py-2 text-[9px] uppercase tracking-[.2em] text-muted backdrop-blur">A space to call your own</p>
+        </div>
+      </div>
+      <div class="border-y border-ink/5"><div class="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-10 gap-y-3 px-5 py-5 text-[9px] font-semibold uppercase tracking-[.2em] text-muted sm:gap-x-16"><span>Thoughtful coffee</span><span class="text-accent">✳</span><span>Made with heart</span><span class="text-accent">✳</span><span>Room to breathe</span><span class="text-accent">✳</span><span>Always welcome</span></div></div>
+    </section>
+
+    <section id="story" class="mx-auto max-w-7xl px-5 py-24 sm:px-8 sm:py-32">
+      <div class="grid items-center gap-14 lg:grid-cols-2 lg:gap-24">
+        <div class="relative grid grid-cols-2 gap-3 sm:gap-4">
+          <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=700&q=80" alt="Freshly brewed coffee in a ceramic cup" class="mt-12 aspect-[4/5] w-full rounded-t-full object-cover">
+          <div class="space-y-3 sm:space-y-4"><img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=700&q=80" alt="Barista carefully preparing coffee" class="aspect-square w-full rounded-full object-cover"><img src="https://images.unsplash.com/photo-1442975631115-c4f7b05b8a2c?auto=format&fit=crop&w=700&q=80" alt="A quiet sunny corner of the cafe" class="aspect-[4/3] w-full rounded-2xl object-cover"></div>
+          <span class="absolute -bottom-5 left-[36%] grid h-20 w-20 place-items-center rounded-full border border-accent/40 bg-cream text-center font-display text-xs italic text-accent sm:h-24 sm:w-24">since<br>twenty<br>twenty</span>
+        </div>
+        <div class="max-w-lg">
+          <p class="mb-5 text-[10px] font-semibold uppercase tracking-[.24em] text-accent">The feeling of being here</p>
+          <h2 class="font-display text-4xl leading-tight tracking-[-.03em] sm:text-5xl">A space between <span class="italic text-accent">places.</span></h2>
+          <div class="mt-7 space-y-4 text-sm leading-7 text-muted"><p>Aruna began with a simple thought: the best parts of a day often happen when we give them room. A good cup in both hands. A conversation that takes its time. A table you can stay at awhile.</p><p>So we made a neighborhood space for all of it. Our coffee is carefully sourced and thoughtfully made; our welcome is for everyone. Come as you are, stay as long as you like.</p></div>
+          <a href="#visit" class="mt-8 inline-flex items-center gap-3 border-b border-accent pb-2 text-xs font-semibold">A seat is waiting for you <span class="text-accent">↗</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section id="menu" class="bg-[#F1ECE3] py-24 sm:py-28">
+      <div class="mx-auto max-w-7xl px-5 sm:px-8">
+        <div class="flex flex-col justify-between gap-7 sm:flex-row sm:items-end"><div><p class="mb-4 text-[10px] font-semibold uppercase tracking-[.24em] text-accent">A few things we love</p><h2 class="font-display text-4xl tracking-[-.03em] sm:text-5xl">Made for your <span class="italic text-accent">kind of day.</span></h2></div><p class="max-w-xs text-sm leading-6 text-muted">Simple ingredients, a little extra care, and something lovely for every kind of craving.</p></div>
+        <div class="mt-10 flex flex-wrap gap-2" role="tablist" aria-label="Menu categories"><button class="tab rounded-full border border-ink/10 px-6 py-3 text-xs font-semibold transition" id="tab-coffee" role="tab" aria-selected="true" aria-controls="menu-items" data-category="coffee">Coffee</button><button class="tab rounded-full border border-ink/10 px-6 py-3 text-xs font-semibold transition hover:bg-white/70" id="tab-noncoffee" role="tab" aria-selected="false" aria-controls="menu-items" data-category="noncoffee">Non-coffee</button><button class="tab rounded-full border border-ink/10 px-6 py-3 text-xs font-semibold transition hover:bg-white/70" id="tab-pastry" role="tab" aria-selected="false" aria-controls="menu-items" data-category="pastry">Pastry & bites</button></div>
+        <div id="menu-items" role="tabpanel" aria-live="polite" class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <article class="menu-card overflow-hidden rounded-2xl bg-cream shadow-soft" data-category="coffee"><img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=700&q=80" alt="Iced latte with a smooth espresso shot" class="aspect-[1.55/1] w-full object-cover"><div class="p-5"><div class="flex justify-between gap-3"><h3 class="font-display text-xl">Aruna Latte</h3><span class="text-sm font-semibold">35k</span></div><p class="mt-2 text-xs leading-5 text-muted">Our house espresso, silky milk, just a hint of sweetness.</p></div></article>
+          <article class="menu-card overflow-hidden rounded-2xl bg-cream shadow-soft" data-category="coffee"><img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=700&q=80" alt="Espresso and coffee beans on a wooden counter" class="aspect-[1.55/1] w-full object-cover"><div class="p-5"><div class="flex justify-between gap-3"><h3 class="font-display text-xl">A Little Black</h3><span class="text-sm font-semibold">28k</span></div><p class="mt-2 text-xs leading-5 text-muted">A double shot, carefully pulled. Bold, round, and lovely.</p></div></article>
+          <article class="menu-card overflow-hidden rounded-2xl bg-cream shadow-soft" data-category="coffee"><img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=700&q=80" alt="Cold brew coffee served over ice" class="aspect-[1.55/1] w-full object-cover"><div class="p-5"><div class="flex justify-between gap-3"><h3 class="font-display text-xl">Slow Day Cold Brew</h3><span class="text-sm font-semibold">32k</span></div><p class="mt-2 text-xs leading-5 text-muted">Steeped overnight for a smooth, easy-going kind of coffee.</p></div></article>
+          <article class="menu-card overflow-hidden rounded-2xl bg-cream shadow-soft" data-category="noncoffee" hidden><img src="https://images.unsplash.com/photo-1515823064-d6e0c04616a7?auto=format&fit=crop&w=700&q=80" alt="Creamy matcha latte" class="aspect-[1.55/1] w-full object-cover"><div class="p-5"><div class="flex justify-between gap-3"><h3 class="font-display text-xl">Soft Cloud Matcha</h3><span class="text-sm font-semibold">36k</span></div><p class="mt-2 text-xs leading-5 text-muted">Bright ceremonial matcha whisked gently with your choice of milk.</p></div></article>
+          <article class="menu-card overflow-hidden rounded-2xl bg-cream shadow-soft" data-category="noncoffee" hidden><img src="https://images.unsplash.com/photo-1542990253-0b8be8e2f4d2?auto=format&fit=crop&w=700&q=80" alt="Fresh citrus drink with ice" class="aspect-[1.55/1] w-full object-cover"><div class="p-5"><div class="flex justify-between gap-3"><h3 class="font-display text-xl">Sunroom Citrus</h3><span class="text-sm font-semibold">30k</span></div><p class="mt-2 text-xs leading-5 text-muted">A bright little mix of orange, honey, and sparkling water.</p></div></article>
+          <article class="menu-card overflow-hidden rounded-2xl bg-cream shadow-soft" data-category="noncoffee" hidden><img src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=700&q=80" alt="A pot of tea served in a glass cup" class="aspect-[1.55/1] w-full object-cover"><div class="p-5"><div class="flex justify-between gap-3"><h3 class="font-display text-xl">Golden Hour Tea</h3><span class="text-sm font-semibold">26k</span></div><p class="mt-2 text-xs leading-5 text-muted">A fragrant, mellow blend for taking your time.</p></div></article>
+          <article class="menu-card overflow-hidden rounded-2xl bg-cream shadow-soft" data-category="pastry" hidden><img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=700&q=80" alt="Freshly baked golden croissants" class="aspect-[1.55/1] w-full object-cover"><div class="p-5"><div class="flex justify-between gap-3"><h3 class="font-display text-xl">Butter, Slowly</h3><span class="text-sm font-semibold">29k</span></div><p class="mt-2 text-xs leading-5 text-muted">A flaky, golden croissant, baked fresh each morning.</p></div></article>
+          <article class="menu-card overflow-hidden rounded-2xl bg-cream shadow-soft" data-category="pastry" hidden><img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=700&q=80" alt="A rich chocolate brownie" class="aspect-[1.55/1] w-full object-cover"><div class="p-5"><div class="flex justify-between gap-3"><h3 class="font-display text-xl">The Fudgy One</h3><span class="text-sm font-semibold">32k</span></div><p class="mt-2 text-xs leading-5 text-muted">Deep chocolate, a tender middle, and a little flaky salt.</p></div></article>
+          <article class="menu-card overflow-hidden rounded-2xl bg-cream shadow-soft" data-category="pastry" hidden><img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=700&q=80" alt="A bowl of fresh yogurt and berries" class="aspect-[1.55/1] w-full object-cover"><div class="p-5"><div class="flex justify-between gap-3"><h3 class="font-display text-xl">Morning, Granola</h3><span class="text-sm font-semibold">34k</span></div><p class="mt-2 text-xs leading-5 text-muted">House granola, seasonal fruit, and creamy local yogurt.</p></div></article>
+        </div>
+        <p class="mt-7 text-[10px] text-muted">Our menu changes with the seasons. Prices are in IDR (thousands).</p>
+      </div>
+    </section>
+
+    <section id="reviews" class="relative overflow-hidden py-24 sm:py-32">
+      <div class="absolute -right-24 top-20 h-72 w-72 rounded-full bg-accent/10 blur-3xl" aria-hidden="true"></div>
+      <div class="relative mx-auto max-w-5xl px-5 text-center sm:px-8"><p class="mb-5 text-[10px] font-semibold uppercase tracking-[.24em] text-accent">A note from the neighborhood</p><div class="text-2xl tracking-[.2em] text-accent" aria-label="5 out of 5 stars">★★★★★</div><p class="mt-2 text-[11px] text-muted">LOVED BY OUR LITTLE COMMUNITY</p>
+        <div class="mt-12 grid gap-5 text-left md:grid-cols-3">
+          <figure class="rounded-2xl border border-ink/5 bg-white/55 p-6"><div class="text-xs tracking-widest text-accent" aria-label="5 out of 5 stars">★★★★★</div><blockquote class="mt-5 font-display text-lg leading-7">“A soft little pocket of calm. The coffee's lovely, but honestly, it's the feeling that brings me back.”</blockquote><figcaption class="mt-6 flex items-center gap-3"><img class="h-9 w-9 rounded-full object-cover" src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=100&q=80" alt=""><span><span class="block text-xs font-semibold">Nadia P.</span><span class="mt-1 block text-[10px] text-muted">A regular since 2022</span></span></figcaption></figure>
+          <figure class="rounded-2xl border border-ink/5 bg-white/55 p-6 md:-translate-y-4"><div class="text-xs tracking-widest text-accent" aria-label="5 out of 5 stars">★★★★★</div><blockquote class="mt-5 font-display text-lg leading-7">“My favorite spot to read, work, or just watch the afternoon go by. Everyone makes you feel right at home.”</blockquote><figcaption class="mt-6 flex items-center gap-3"><img class="h-9 w-9 rounded-full object-cover" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&q=80" alt=""><span><span class="block text-xs font-semibold">Adi R.</span><span class="mt-1 block text-[10px] text-muted">Often by the window</span></span></figcaption></figure>
+          <figure class="rounded-2xl border border-ink/5 bg-white/55 p-6"><div class="text-xs tracking-widest text-accent" aria-label="5 out of 5 stars">★★★★★</div><blockquote class="mt-5 font-display text-lg leading-7">“The matcha is beautiful and the pastries disappear fast. Bring a friend, or come meet a new one.”</blockquote><figcaption class="mt-6 flex items-center gap-3"><img class="h-9 w-9 rounded-full object-cover" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=100&q=80" alt=""><span><span class="block text-xs font-semibold">Maya S.</span><span class="mt-1 block text-[10px] text-muted">Here for the matcha</span></span></figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="visit" class="bg-ink py-24 text-cream sm:py-28">
+      <div class="mx-auto grid max-w-7xl gap-12 px-5 sm:px-8 lg:grid-cols-[.9fr_1.1fr] lg:gap-20">
+        <div><p class="mb-5 text-[10px] font-semibold uppercase tracking-[.24em] text-[#D9A476]">Come find your corner</p><h2 class="font-display text-4xl leading-tight tracking-[-.03em] sm:text-5xl">The kettle's on.<br><span class="italic text-[#D9A476]">You're welcome.</span></h2><p class="mt-6 max-w-sm text-sm leading-7 text-white/60">Find us tucked into the neighborhood. Drop by for a quick cup, or stay until the light changes.</p>
+          <div class="mt-9 grid gap-7 sm:grid-cols-2"><div><h3 class="text-[10px] font-semibold uppercase tracking-[.19em] text-[#D9A476]">Come by</h3><address class="mt-3 text-sm not-italic leading-6 text-white/75">Jl. Senja Sore No. 18<br>Bandung, Jawa Barat 40132</address><a class="mt-3 inline-flex text-xs text-white underline decoration-white/30 underline-offset-4 hover:decoration-white" href="https://maps.google.com/?q=Bandung+Indonesia" target="_blank" rel="noopener noreferrer">Get directions ↗</a></div><div><h3 class="text-[10px] font-semibold uppercase tracking-[.19em] text-[#D9A476]">Take it slow</h3><p class="mt-3 text-sm leading-6 text-white/75">Every day<br>8:00 am – 10:00 pm</p><p class="mt-2 text-[10px] text-white/45">Good mornings, longer evenings.</p></div></div>
+          <a href="https://wa.me/6281234567890?text=Hi%20Aruna%2C%20I%27d%20love%20to%20know%20more." target="_blank" rel="noopener noreferrer" class="mt-9 inline-flex items-center gap-3 rounded-full bg-[#C88A58] px-6 py-4 text-xs font-semibold text-ink transition hover:bg-[#dfa879]"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5A11.9 11.9 0 0 0 12 .04C5.4.04.04 5.4.04 12c0 2.1.55 4.16 1.6 5.97L0 24l6.2-1.62A11.95 11.95 0 0 0 12 23.87h.01c6.6 0 11.95-5.37 11.95-11.97a11.9 11.9 0 0 0-3.46-8.4ZM12 21.83h-.01a9.9 9.9 0 0 1-5.04-1.38l-.36-.21-3.68.96.98-3.59-.24-.37A9.9 9.9 0 0 1 2.13 12C2.13 6.55 6.56 2.12 12 2.12a9.84 9.84 0 0 1 7.01 2.9 9.84 9.84 0 0 1 2.9 7.01c0 5.45-4.44 9.8-9.91 9.8Zm5.43-7.4c-.3-.15-1.77-.88-2.04-.98-.27-.1-.47-.15-.66.15-.2.3-.76.98-.93 1.18-.17.2-.34.22-.64.07-.3-.15-1.27-.47-2.42-1.5-.9-.8-1.5-1.78-1.68-2.08-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.03-.52-.08-.15-.66-1.6-.91-2.18-.24-.57-.48-.49-.66-.5h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48 0 1.47 1.06 2.88 1.2 3.08.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.77-.72 2.02-1.42.25-.69.25-1.29.18-1.42-.08-.12-.28-.2-.58-.35Z"/></svg>Say hello on WhatsApp <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="map-art relative min-h-[360px] overflow-hidden rounded-3xl">
+          <svg class="absolute inset-0 h-full w-full" viewBox="0 0 640 420" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path d="M-30 100 190 170 360 135 690 220M100 -30 210 130 250 280 430 470M500 -30 440 110 470 260 650 340" fill="none" stroke="#f9f6f0" stroke-width="20" stroke-linecap="round"/><path d="M-30 100 190 170 360 135 690 220" fill="none" stroke="#c88a58" stroke-width="2" stroke-dasharray="5 9"/><path d="M100 -30 210 130 250 280 430 470M500 -30 440 110 470 260 650 340" fill="none" stroke="#f9f6f0" stroke-width="2" stroke-dasharray="4 8"/></svg>
+          <div class="absolute left-[53%] top-[42%] grid h-14 w-14 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-accent text-white shadow-lg shadow-ink/20"><span class="text-xl" aria-hidden="true">✳</span><span class="absolute inset-[-7px] animate-ping rounded-full border border-accent/50" style="animation-duration:2.5s"></span></div>
+          <span class="absolute left-[20%] top-[27%] rounded-full bg-cream/75 px-3 py-1.5 text-[9px] uppercase tracking-[.15em] text-ink/70">Dago</span><span class="absolute right-[12%] top-[58%] rounded-full bg-cream/75 px-3 py-1.5 text-[9px] uppercase tracking-[.15em] text-ink/70">Bandung</span>
+          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/35 via-transparent to-transparent"></div><div class="absolute bottom-5 left-5 flex items-center gap-3 rounded-full bg-cream px-4 py-3 text-ink shadow-soft"><span class="grid h-9 w-9 place-items-center rounded-full bg-accent text-white">✳</span><span><span class="block font-display text-sm">Aruna</span><span class="block text-[9px] text-muted">A little pause in Bandung</span></span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-[#211A17] text-white/55"><div class="mx-auto flex max-w-7xl flex-col gap-6 px-5 py-8 text-xs sm:flex-row sm:items-center sm:justify-between sm:px-8"><a href="#home" class="font-display text-base tracking-wide text-cream">aruna <span class="font-sans text-[9px] uppercase tracking-[.2em] text-white/40">· space & coffee</span></a><p>Made with care, for the slower moments. © <span id="year"></span> Aruna.</p><div class="flex items-center gap-5"><a href="https://instagram.com/" target="_blank" rel="noopener noreferrer" class="transition hover:text-cream">Instagram ↗</a><a href="https://tiktok.com/" target="_blank" rel="noopener noreferrer" class="transition hover:text-cream">TikTok ↗</a></div></div></footer>
+  <script>
+    const translations = {
+      'Main navigation': 'Navigasi utama',
+      'Choose language': 'Pilih bahasa',
+      'Language / Bahasa': 'Bahasa / Language',
+      'space & coffee': 'ruang & kopi',
+      'Our story': 'Cerita kami',
+      'Kind words': 'Kata mereka',
+      'Find us': 'Lokasi',
+      'Come on in': 'Mampir, yuk',
+      'Open navigation menu': 'Buka menu navigasi',
+      'Close navigation menu': 'Tutup menu navigasi',
+      'Your slower corner of the world': 'Sudut tenang untuk menikmati hari',
+      'Take a little': 'Ambil sedikit waktu untuk',
+      'pause.': 'berjeda.',
+      'Good coffee, familiar faces, and nowhere else you need to be. Come settle in at Aruna.': 'Kopi nikmat, wajah-wajah akrab, dan tak perlu terburu-buru. Mari bersantai di Aruna.',
+      'Explore our menu': 'Lihat menu kami',
+      'A little about us': 'Kenali kami',
+      'Cafe guest': 'Pengunjung kafe',
+      'A neighborhood favorite': 'Favorit warga sekitar',
+      'made for your everyday moments': 'teman untuk momen sehari-hari',
+      'slow mornings': 'pagi yang santai',
+      'A space to call your own': 'Tempat nyaman untukmu',
+      'Thoughtful coffee': 'Kopi pilihan',
+      'Made with heart': 'Dibuat sepenuh hati',
+      'Room to breathe': 'Ruang untuk bernapas',
+      'Always welcome': 'Selalu disambut',
+      'since': 'sejak',
+      'twenty': 'dua ribu',
+      'The feeling of being here': 'Rasa nyaman saat berada di sini',
+      'A space between': 'Ruang di antara',
+      'places.': 'berbagai tempat.',
+      'Aruna began with a simple thought: the best parts of a day often happen when we give them room. A good cup in both hands. A conversation that takes its time. A table you can stay at awhile.': 'Aruna berawal dari pemikiran sederhana: momen terbaik sering hadir saat kita memberi ruang untuk menikmatinya. Secangkir kopi hangat, percakapan tanpa terburu-buru, dan meja tempatmu betah berlama-lama.',
+      'So we made a neighborhood space for all of it. Our coffee is carefully sourced and thoughtfully made; our welcome is for everyone. Come as you are, stay as long as you like.': 'Karena itu, kami menciptakan ruang untuk semuanya. Kopi kami dipilih dengan cermat dan diracik sepenuh hati; siapa pun selalu diterima di sini. Datang apa adanya, dan tinggallah selama yang kamu suka.',
+      'A seat is waiting for you': 'Ada tempat untukmu di sini',
+      'A few things we love': 'Beberapa hal favorit kami',
+      'Made for your': 'Teman untuk',
+      'kind of day.': 'harimu.',
+      'Simple ingredients, a little extra care, and something lovely for every kind of craving.': 'Bahan sederhana, diracik dengan penuh perhatian, dan selalu ada yang pas untuk menemani harimu.',
+      'Coffee': 'Kopi',
+      'Non-coffee': 'Non-kopi',
+      'Pastry & bites': 'Pastri & camilan',
+      'A Little Black': 'Espresso Klasik',
+      'Slow Day Cold Brew': 'Cold Brew Santai',
+      'Soft Cloud Matcha': 'Matcha Awan Lembut',
+      'Sunroom Citrus': 'Jeruk Cerah',
+      'Golden Hour Tea': 'Teh Waktu Senja',
+      'Butter, Slowly': 'Croissant Mentega',
+      'The Fudgy One': 'Brownies Fudgy',
+      'Morning, Granola': 'Granola Pagi',
+      'Our house espresso, silky milk, just a hint of sweetness.': 'Espresso khas kami, susu lembut, dengan sedikit sentuhan manis.',
+      'A double shot, carefully pulled. Bold, round, and lovely.': 'Dua shot espresso yang diracik dengan cermat. Kaya, seimbang, dan nikmat.',
+      'Steeped overnight for a smooth, easy-going kind of coffee.': 'Diseduh semalaman untuk rasa kopi yang lembut dan ringan.',
+      'Bright ceremonial matcha whisked gently with your choice of milk.': 'Matcha pilihan yang dikocok lembut dengan susu favoritmu.',
+      'A bright little mix of orange, honey, and sparkling water.': 'Perpaduan segar jeruk, madu, dan air soda.',
+      'A fragrant, mellow blend for taking your time.': 'Racikan teh harum dan lembut untuk menemani waktu santaimu.',
+      'A flaky, golden croissant, baked fresh each morning.': 'Croissant renyah keemasan, dipanggang segar setiap pagi.',
+      'Deep chocolate, a tender middle, and a little flaky salt.': 'Cokelat pekat, bagian tengah yang lembut, dan sedikit garam laut.',
+      'House granola, seasonal fruit, and creamy local yogurt.': 'Granola khas kami, buah musiman, dan yoghurt lokal yang lembut.',
+      'Our menu changes with the seasons. Prices are in IDR (thousands).': 'Menu kami mengikuti musim. Harga tercantum dalam ribuan rupiah.',
+      'A note from the neighborhood': 'Cerita dari tetangga kami',
+      'LOVED BY OUR LITTLE COMMUNITY': 'DISUKAI KOMUNITAS KAMI',
+      "A regular since 2022": 'Pelanggan setia sejak 2022',
+      'Often by the window': 'Sering duduk di dekat jendela',
+      'Here for the matcha': 'Datang untuk matcha',
+      'Come find your corner': 'Temukan sudut favoritmu',
+      "The kettle's on.": 'Airnya sudah siap.',
+      "You're welcome.": 'Kamu selalu diterima.',
+      'Find us tucked into the neighborhood. Drop by for a quick cup, or stay until the light changes.': 'Kami hadir di tengah lingkungan yang hangat. Mampir untuk secangkir kopi, atau bersantai sampai senja tiba.',
+      'Come by': 'Alamat',
+      'Get directions': 'Petunjuk arah',
+      'Take it slow': 'Santai saja',
+      'Every day': 'Setiap hari',
+      '8:00 am ': '08.00 ',
+      '10:00 pm': '22.00',
+      'Good mornings, longer evenings.': 'Pagi yang cerah, sore yang lebih panjang.',
+      'Say hello on WhatsApp': 'Sapa kami di WhatsApp',
+      'A little pause in Bandung': 'Sejenak jeda di Bandung',
+      'Made with care, for the slower moments.': 'Dibuat sepenuh hati untuk momen yang lebih tenang.',
+      '5 out of 5 stars': '5 dari 5 bintang'
+    };
+
+    const originalTextNodes = [];
+    const textWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    while (textWalker.nextNode()) originalTextNodes.push([textWalker.currentNode, textWalker.currentNode.textContent]);
+
+    function setLanguage(language) {
+      const isIndonesian = language === 'id';
+      document.documentElement.lang = language;
+      document.title = isIndonesian ? 'Aruna — Ruang & Kopi' : 'Aruna — Space & Coffee';
+      document.querySelector('meta[name="description"]').content = isIndonesian
+        ? 'Sejenak jeda di Aruna. Nikmati kopi pilihan, camilan lezat, dan ruang nyaman untuk bersantai.'
+        : 'A little pause in your day. Find thoughtful coffee, comforting bites, and a place to feel at home at Aruna Space & Coffee.';
+
+      originalTextNodes.forEach(([node, original]) => {
+        const trimmed = original.trim();
+        if (!trimmed) return;
+        const translated = translations[trimmed] || (isIndonesian && /^8:00 am.*10:00 pm$/.test(trimmed) ? '08.00–22.00' : undefined);
+        node.textContent = isIndonesian && translated
+          ? original.replace(trimmed, translated)
+          : original;
+      });
+
+      document.querySelectorAll('.language-button').forEach(button => {
+        const selected = button.dataset.language === language;
+        button.setAttribute('aria-pressed', String(selected));
+        button.classList.toggle('bg-ink', selected);
+        button.classList.toggle('text-white', selected);
+        button.classList.toggle('text-muted', !selected);
+      });
+      document.querySelectorAll('[role="group"][aria-label="Choose language"]').forEach(group => {
+        group.setAttribute('aria-label', isIndonesian ? 'Pilih bahasa' : 'Choose language');
+      });
+      document.querySelector('nav').setAttribute('aria-label', isIndonesian ? 'Navigasi utama' : 'Main navigation');
+      document.getElementById('menu-toggle').setAttribute('aria-label', isIndonesian ? 'Buka menu navigasi' : 'Open navigation menu');
+      document.querySelector('[role="tablist"]').setAttribute('aria-label', isIndonesian ? 'Kategori menu' : 'Menu categories');
+      document.querySelectorAll('[aria-label="5 out of 5 stars"]').forEach(element => {
+        element.setAttribute('aria-label', isIndonesian ? '5 dari 5 bintang' : '5 out of 5 stars');
+      });
+      const testimonialQuotes = isIndonesian
+        ? [
+            '“Sudut kecil yang menenangkan. Kopinya enak, tapi suasananyalah yang selalu membuat saya kembali.”',
+            '“Tempat favorit saya untuk membaca, bekerja, atau menikmati sore. Semua orang di sini membuatmu merasa seperti di rumah.”',
+            '“Matcha-nya istimewa dan pastrinya cepat habis. Ajak teman, atau datang dan berkenalan dengan teman baru.”'
+          ]
+        : [
+            '“A soft little pocket of calm. The coffee’s lovely, but honestly, it’s the feeling that brings me back.”',
+            '“My favorite spot to read, work, or just watch the afternoon go by. Everyone makes you feel right at home.”',
+            '“The matcha is beautiful and the pastries disappear fast. Bring a friend, or come meet a new one.”'
+          ];
+      document.querySelectorAll('#reviews blockquote').forEach((quote, index) => {
+        quote.textContent = testimonialQuotes[index];
+      });
+      document.querySelectorAll('.mobile-link').forEach(link => {
+        const href = link.getAttribute('href');
+        link.textContent = isIndonesian
+          ? ({ '#story': 'Cerita kami', '#menu': 'Menu', '#reviews': 'Kata mereka', '#visit': 'Lokasi' }[href])
+          : ({ '#story': 'Our story', '#menu': 'Menu', '#reviews': 'Kind words', '#visit': 'Find us' }[href]);
+      });
+      const whatsapp = document.querySelector('a[href^="https://wa.me/"]');
+      whatsapp.href = `https://wa.me/6281234567890?text=${encodeURIComponent(isIndonesian ? 'Halo Aruna, saya ingin tahu lebih banyak.' : "Hi Aruna, I'd love to know more.")}`;
+      try { localStorage.setItem('aruna-language', language); } catch (_) { /* Storage may be unavailable in private browsing. */ }
+    }
+
+    document.querySelectorAll('.language-button').forEach(button => {
+      button.addEventListener('click', () => setLanguage(button.dataset.language));
+    });
+    let savedLanguage = 'en';
+    try { savedLanguage = localStorage.getItem('aruna-language') || 'en'; } catch (_) { /* Use English when storage is unavailable. */ }
+    setLanguage(savedLanguage === 'id' ? 'id' : 'en');
+
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIcon = document.getElementById('menu-icon');
+
+    function setMobileMenu(open) {
+      mobileMenu.classList.toggle('hidden', !open);
+      menuToggle.setAttribute('aria-expanded', String(open));
+      const action = open ? 'Close navigation menu' : 'Open navigation menu';
+      menuToggle.setAttribute('aria-label', document.documentElement.lang === 'id' ? (open ? 'Tutup menu navigasi' : 'Buka menu navigasi') : action);
+      menuIcon.innerHTML = open
+        ? '<path d="m6 6 12 12M18 6 6 18" stroke-linecap="round"/>'
+        : '<path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round"/>';
+    }
+
+    menuToggle.addEventListener('click', () => {
+      setMobileMenu(menuToggle.getAttribute('aria-expanded') !== 'true');
+    });
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => setMobileMenu(false));
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && menuToggle.getAttribute('aria-expanded') === 'true') {
+        setMobileMenu(false);
+        menuToggle.focus();
+      }
+    });
+
+    const tabs = [...document.querySelectorAll('[role="tab"]')];
+    const menuCards = [...document.querySelectorAll('.menu-card')];
+    function selectCategory(category, focusTab = false) {
+      tabs.forEach(tab => {
+        const selected = tab.dataset.category === category;
+        tab.setAttribute('aria-selected', String(selected));
+        tab.tabIndex = selected ? 0 : -1;
+        tab.classList.toggle('hover:bg-white/70', !selected);
+      });
+      menuCards.forEach(card => { card.hidden = card.dataset.category !== category; });
+      if (focusTab) tabs.find(tab => tab.dataset.category === category)?.focus();
+    }
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => selectCategory(tab.dataset.category));
+      tab.addEventListener('keydown', event => {
+        let nextIndex = index;
+        if (event.key === 'ArrowRight') nextIndex = (index + 1) % tabs.length;
+        else if (event.key === 'ArrowLeft') nextIndex = (index - 1 + tabs.length) % tabs.length;
+        else if (event.key === 'Home') nextIndex = 0;
+        else if (event.key === 'End') nextIndex = tabs.length - 1;
+        else return;
+        event.preventDefault();
+        selectCategory(tabs[nextIndex].dataset.category, true);
+      });
+    });
+    selectCategory('coffee');
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const revealTargets = document.querySelectorAll('#story, #menu > div > div:first-child, #reviews, #visit > div > div:first-child');
+    if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const revealObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      revealTargets.forEach(target => { target.classList.add('reveal'); revealObserver.observe(target); });
+    }
+  </script>
+</body>
+</html>
